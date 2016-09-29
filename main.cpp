@@ -69,14 +69,14 @@ int main()
 	// of the next node.
 	for (int i = 0; i < 4; i++)
 	{
-		bookArray[i]->setPointer(bookArray[i+1]);
+		bookArray[i]->setNextPointer(bookArray[i+1]);
 
 		// Prints the current node title and author
 		cout << "The book " << bookArray[i]->getBookTitle() << ", by " <<
 				bookArray[i]->getAuthor() << " is ordered ";
 
 		// Compares the values of the title
-		int x = bookArray[i]->CompareData(bookArray[i+1]->getBookTitle());
+		int x = bookArray[i]->CompareTitle(bookArray[i+1]->getBookTitle());
 
 		// Translates the compare value to the correct output
 		if (x > 0)

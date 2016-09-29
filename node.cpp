@@ -8,6 +8,7 @@
 #include "node.hpp"
 
 #include <iostream>
+#include <iomanip>
 #include <string>
 
 using namespace std;
@@ -68,7 +69,11 @@ int Node::CompareAuthor(string author)
 // Print the data to the screen
 void Node::ProcessData()
 {
-
 	// Prints node info to screen
-	cout << mBookTitle << ", " << mAuthor << ", " << mDataRead << endl;
+	cout << left;
+	cout << setw(30) << mBookTitle;
+	cout << setw(20) << mAuthor;
+	cout << right;
+	cout << setw(15) << mDataRead << endl;
+
 }
