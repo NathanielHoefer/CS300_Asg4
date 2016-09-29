@@ -52,6 +52,7 @@ int main()
 	// Creates an array to contain 5 nodes
 	Node * bookArray[5];
 
+
 	// Creates 5 nodes with preset values
 	bookArray[0] = new Node("Don Quixote",
 			"Miguel de Cervantes", "01/15/1843");

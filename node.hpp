@@ -85,6 +85,9 @@ class Node
 	// Pointer to next node in list
 	Node *mNextNode;
 
+	// Pointer to previous node in list
+	Node *mPrevNode;
+
 
 	public:
 
@@ -94,24 +97,43 @@ class Node
 
 
 // Mutator and Accessor Functions
-	void setPointer(Node *prt) { mNextNode = prt; };
-	Node * getPointer() { return mNextNode; };
+	void setNextPointer(Node *prt) { mNextNode = prt; };
+	void setPrevPointer(Node *prt) { mPrevNode = prt; };
+	Node * getNextPointer() { return mNextNode; };
+	Node * getPrevPointer() { return mPrevNode; };
 	string getBookTitle() { return mBookTitle; };
 	string getAuthor() { return	mAuthor; };
 
 
+
 // Member Functions
 
-//	Compare a given book title against the one in the class.
-//	- Input Parms: string title - The title to be compared
-//	- Output Parms: returns numeric value depending on the lexigraphic ordering
+
+//	CompareTitle(string title) - compare a given book title against the one in
+//	the class.
+//	- Preconditions: None
+//	- Postconditions: returns numeric value depending on the lexigraphic
+//		ordering
 //	- Returns: (int) -1 if title < mBookTitle, 0 if title == mBookTitle,
 //		1 if title > mBookTitle.
-	int CompareData(string title);
+	int CompareTitle(string title);
 
-//	Print the data to the screen
-//	- Input Parms: None
-//	- Output Parms: Data printed to screen
+
+
+//	CompareAuthor(string author) - compare a given author against the one in the
+//	class.
+//	- Preconditions: None
+//	- Postconditions: returns numeric value depending on the lexigraphic
+//		ordering
+//	- Returns: (int) -1 if title < mAuthor, 0 if author == mAuthor,
+//		1 if author > mAuthor.
+	int CompareAuthor(string author);
+
+
+
+//	ProcessData() - Print the data to the screen
+//	- Preconditions: None
+//	- Postconditions: Data in node is printed to the screen
 	void ProcessData();
 
 

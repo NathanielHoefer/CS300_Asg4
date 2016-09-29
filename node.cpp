@@ -26,6 +26,7 @@ Node::Node()
 	mAuthor = "Author";
 	mDataRead = "01/01/1900";
 	mNextNode = NULL;
+	mPrevNode = NULL;
 }
 
 
@@ -35,6 +36,7 @@ Node::Node(string title, string author, string date)
 	mAuthor = author;
 	mDataRead = date;
 	mNextNode = NULL;
+	mPrevNode = NULL;
 }
 
 
@@ -43,13 +45,24 @@ Node::Node(string title, string author, string date)
 
 
 // Compare a given book title against the one in the class.
-int Node::CompareData(string title)
+int Node::CompareTitle(string title)
 {
 	return mBookTitle.compare(title);
 }
 
 
 /*****************************************************************************/
+
+
+// Compare a given author against the one in the class.
+int Node::CompareAuthor(string author)
+{
+	return mAuthor.compare(author);
+}
+
+
+/*****************************************************************************/
+
 
 
 // Print the data to the screen
