@@ -1,0 +1,73 @@
+/*****************************************************************************/
+/* Program 4 - Linked List Class Creation									 */
+/*****************************************************************************
+    Author: Nathaniel Hoefer
+    Student ID: X529U639
+    Program: #4
+
+
+Description of the Problem:
+	For this program, you are going to modify the Node class that you wrote for 
+	program #3 and implement a double linked list.  The node class will have the 
+	same member functions as before with the addition of another link.  You will 
+	now have a previous link (pointer) and a next link (pointer).  All of the 
+	information will be written to a file.  Just as in the first program, you 
+	are to check to see if the file exists.  If it does, open the file and 
+	populate the list.  Otherwise, when the program exits, print the information 
+	to a file.  Call the file “booklist.txt”.
+
+
+Class Name: Node
+	The inventory class contains only the members associated with the inventory
+	which are part number, item, quantity, price, and total cost.
+
+Data:		
+		- (string) mBookTitle: The title of a book
+		- (string) mAuthor: The author of the book
+		- (int) mDateRead: contains numerical value of the date in the 
+			format of MMDDYYYY
+		- (Node) *mNextNode: Pointer to next node in list
+		- (Node) *mPrevNode: Pointer to previous node in list
+
+Constructors:	
+		+ Node() - Sets the value to default
+		+ Node(string title, string author, int date): creates node with the
+			arguments passed
+				
+Mutator Functions:
+		+ setNextPointer
+		+ setPrevPointer
+			
+Accessor Functions:
+		+ getNextPointer
+		+ getPrevPointer
+		+ getBookTitle
+		+ getAuthor
+			
+Functions:
+		+ CompareTitle(string title) - compare a given book title against the
+			one in the class.
+			Preconditions: None
+			Postconditions: returns numeric value depending on the 
+				lexigraphic ordering
+			Returns: (int) -1 if title < mBookTitle, 0 if title == mBookTitle,
+				1 if title > mBookTitle.
+			> Compare string and return value based on result
+			
+		+ CompareAuthor(string author) - compare a given author against the
+			one in the class.
+			Preconditions: None
+			Postconditions: returns numeric value depending on the 
+				lexigraphic ordering
+			Returns: (int) -1 if title < mAuthor, 0 if author == mAuthor,
+				1 if author > mAuthor.
+			> Compare string and return value based on result
+			
+		+ ProcessData() - Print the data to the screen
+			Preconditions: None
+			Postconditions: Data in node is printed to the screen
+			> Print title
+			> Print author
+			> Print formatted date
+			
+*/
