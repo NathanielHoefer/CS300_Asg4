@@ -65,7 +65,7 @@ void LinkedList::Insert(string title, string author, string date)
 /*****************************************************************************/
 
 
-//	Delete(string title) - Searches and deletes the node(s) with a given title.
+//	Searches and deletes the node(s) with a given title.
 void LinkedList::Delete(string title)
 {
 	Retrieve(title);
@@ -76,20 +76,25 @@ void LinkedList::Delete(string title)
 
 	if (reply == "Y" || reply == "y")
 	{
-		Node *CurrentPtr = mHead;
+		Node *currentPtr = mHead;
+		Node *nextPtr = mHead;
 		int compareResult;
 		int itemsDeleted = 0;
 
 		// Cycles through each node
 		for (int i = 0; i < mCount; i++)
 		{
-			// Compares the entered title to node title
-			compareResult = CurrentPtr->CompareTitle(title);
+			// Loads next pointer in preparation for next node
+			nextPtr = currentPtr->getNextPointer();
 
+			// Compares the entered title to node title
+			compareResult = currentPtr->CompareTitle(title);
+
+			// Executes if titles match
 			if (compareResult == 0)
 			{
-				Node *next = CurrentPtr->getNextPointer();
-				Node *prev = CurrentPtr->getPrevPointer();
+				Node *next = currentPtr->getNextPointer();
+				Node *prev = currentPtr->getPrevPointer();
 
 				// If selection is only item in list
 				if (mHead == mTail)
@@ -115,11 +120,12 @@ void LinkedList::Delete(string title)
 					next->setPrevPointer(prev);
 				}
 
-				delete CurrentPtr;
+				delete currentPtr;
 				itemsDeleted++;
 				mCount--;
-				//TODO update pointer
 			}
+
+			currentPtr = nextPtr;
 		}
 
 		cout << itemsDeleted << " item(s) deleted" << endl;
@@ -130,19 +136,67 @@ void LinkedList::Delete(string title)
 /*****************************************************************************/
 
 
-//	Traverse(bool backwards) - Prints each node to the screen
+//	Prints each node to the screen
 void LinkedList::Traverse(bool backwards)
 {
+	// Checks if list is empty
+	if (isEmpty())
+	{
+		cout << "List is empty" << endl;
+	}
+	else
+	{
+		// If backwards is true then begins at tail
+		if (backwards)
+		{
+			Node *currentPtr = mTail;
+			for (int i = 0; i < mCount; i++)
+			{
+				// Prints info and updates ptr to prev pointer
+				currentPtr->ProcessData();
+				currentPtr = currentPtr->getPrevPointer();
+			}
+		}
+		// If not backwards, then begins at head until NULL is reached
+		else
+		{
+			Node *currentPtr = mHead;
 
+			for (int i = 0; i < mCount; i++)
+			{
+				// Prints info and updates ptr to next pointer
+				currentPtr->ProcessData();
+				currentPtr = currentPtr->getNextPointer();
+			}
+		}
+	}
 }
 
 
 /*****************************************************************************/
 
 
-//	Retrieve(string title) - retrieves the nodes with the given title and
-//	prints info
+//	retrieves the nodes with the given title and prints info
 void LinkedList::Retrieve(string title)
 {
+	// Checks if list is empty
+	if (isEmpty())
+	{
+		cout << "List is empty" << endl;
+	}
+	else
+	{
+		Node *currentPtr = mHead;
 
+		// Cycles through all nodes
+		for (int i = 0; i < mCount; i++)
+		{
+			// If titles match, node info is printed
+			if (currentPtr->CompareTitle(title) == 0)
+				currentPtr->ProcessData();
+
+			// Updates to next node
+			currentPtr = currentPtr->getNextPointer();
+		}
+	}
 }

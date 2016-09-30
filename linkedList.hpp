@@ -7,8 +7,8 @@
 
 
 Class Name: LinkedList
-	This class initializes a unordered double linked list containing the information of
-	a book, its author, and the date read within each node.
+	This class initializes a unordered double linked list containing the
+	information of a book, its author, and the date read within each node.
 
 Data:
 		- (Node) *mHead: Pointer to the Head of the list
