@@ -103,6 +103,7 @@ class Node
 	Node * getPrevPointer() { return mPrevNode; };
 	string getBookTitle() { return mBookTitle; };
 	string getAuthor() { return	mAuthor; };
+	string getDate() { return mDataRead; };
 
 
 

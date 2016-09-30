@@ -40,71 +40,296 @@ Functions:
 
 #include "node.hpp"
 #include "linkedList.hpp"
+
 #include <string>
 #include <iostream>
+#include <sstream>
+#include <fstream>
+#include <iomanip>
+#include <cstdlib>
 
 using namespace std;
 
 int main()
 {
-	cout << "--------------------- Program 3 -----------------------\n" << endl;
+	int maxListCount = 100;
+	LinkedList list;
 
-	// Creates an array to contain 5 nodes
-	Node * bookArray[5];
+	// Name of file to be saved and read from
+	string fileName = "booklist.txt";
 
 
-	// Creates 5 nodes with preset values
-	bookArray[0] = new Node("Don Quixote",
-			"Miguel de Cervantes", "01/15/1843");
-	bookArray[1] = new Node("Tale of Two Cities",
-			"Charles Dickens", "11/04/1993");
-	bookArray[2] = new Node("The Hobbit",
-			"J.R.R. Tolkien", "05/23/2001");
-	bookArray[3] = new Node("The Great Divorce",
-			"C.S. Lewis", "08/14/1986");
-	bookArray[4] = new Node("The Catcher in the Rye",
-			"J.D. Salinger", "12/25/2013");
+// Read from file **************************************************************
 
-	// Links the nodes using the member variables and compares the titles
-	// of the next node.
-	for (int i = 0; i < 4; i++)
+
+	ifstream readFile(fileName.c_str());
+	string fileLine;
+
+	// if 0, then error has occurred.
+	int no_error = 1;
+	if (readFile.is_open())
 	{
-		bookArray[i]->setNextPointer(bookArray[i+1]);
+		// Reads each line and uses parse function to store data
+		// ParseLine will return 0 if an there is an issue with opening
+		// the file.
+		while (getline(readFile, fileLine) && no_error > 0)
+		{
+			// Checks to see if the count is greater than 100
+			if (list.getCount() < maxListCount)
+			{
+				// First value of substring
+				int sub1 = 0;
 
-		// Prints the current node title and author
-		cout << "The book " << bookArray[i]->getBookTitle() << ", by " <<
-				bookArray[i]->getAuthor() << " is ordered ";
+				// Second value of substring
+				int sub2 = fileLine.find(',');
 
-		// Compares the values of the title
-		int x = bookArray[i]->CompareTitle(bookArray[i+1]->getBookTitle());
+				string title;
+				string author;
+				string date;
 
-		// Translates the compare value to the correct output
-		if (x > 0)
-			cout << "after ";
-		else if (x < 0)
-			cout << "before ";
-		else
-			cout << "equal to ";
+				// Tries to parse the information into the correct fields
+				// Exception is thrown if error occurs.
+				try
+				{
+					// Parses the title
+					title = fileLine.substr(sub1, (sub2-sub1));
+
+					// Removes title from line
+					sub1 = title.length() + 1;
+					sub2 = fileLine.length();
+					fileLine = fileLine.substr(sub1, (sub2 - sub1));
+
+					// Parses the quantity
+					sub1 = 0;
+					sub2 = fileLine.find(',');
+					author = fileLine.substr(sub1, (sub2-sub1));
+
+					// Parses the price
+					sub1 = author.length() + 1;
+					sub2 = fileLine.length();
+					date = fileLine.substr(sub1, (sub2 - sub1));
 
 
-		// Prints the next node title and author
-		cout << bookArray[i+1]->getBookTitle() << ", by " <<
-				bookArray[i+1]->getAuthor() << "." << endl;
+
+					// Creates new part from the parsed info
+					list.Insert(title, author, date);
+
+					no_error = 1;
+				}
+				catch (int i)
+				{
+					cout << "ERROR: Unable to open file" << endl;
+					no_error = 0;
+				}
+			}
+			else
+			{
+				no_error = 0;
+			}
+		}
+
+		// Tells user if there was an error reading the file
+		if (no_error == 0)
+		{
+			cout << "Error Reading File" << endl;
+		}
+		readFile.close();
 	}
 
-	cout << "\n";
 
-	// Prints the information of a node, then deletes it
-	for (int i = 0; i < 5; i++)
+// Enter menu loop *************************************************************
+
+
+	// Enters menu loop
+	bool isExit = false;
+	while (!isExit)
 	{
-		bookArray[i]->ProcessData();
-		delete bookArray[i];
+		// Menu option chosen by user
+		int option = 0;
+
+		// Requests user input for menu selection
+		bool isValid = false;
+		while (!isValid)
+		{
+			// Application title
+			cout << "\n\n---------------- Linked List Program - Assignment 4 "
+					"-----------------" << endl;
+			cout << "      This application utilizes a linked list to hold book"
+					" data      " << endl;
+			cout << "----------------------------------------------------"
+					"-----------------\n" << endl;
+
+			// Menu options
+			cout << "1. Add a book" << endl;
+			cout << "2. Delete a book" << endl;
+			cout << "3. Retrieve a book" << endl;
+			cout << "4. Traverse list forward" << endl;
+			cout << "5. Traverse list backward" << endl;
+			cout << "6. Save and Exit Program\n" << endl;
+
+			// Receives user input and places it in option
+			cout << "Please select a menu by entering a number: " << endl;
+			cin >> option;
+
+			// Checks to see if input is between 1 and 5, and max
+			// inventory has been reached
+			if ((option >= 1) && (option <= 6))
+			{
+
+				isValid = true;
+
+				// Enters page depending on chosen option
+				switch (option)
+				{
+				case 1 :
+
+					// If max list count is reached, then skip insert method
+					if (list.getCount() > maxListCount)
+					{
+						cout << "\n*** Max Count Reached ***" << endl;
+					}
+					else
+					{
+						string title = "";
+						string author = "";
+						string date = "";
+
+						cout << "\n1. Add a book:\n" << endl;
+						cout << "Enter Title: " << endl;
+						getline(cin, title);
+						cout << "Enter Author: " << endl;
+						getline(cin, author);
+						cout << "Enter Date (MM/DD/YYY): " << endl;
+						getline(cin, date);
+
+						cout << endl;
+
+						list.Insert(title, author, date);
+					}
+					break;
+
+				case 2 :
+
+					// Checks to see if list is populated
+					if (list.getCount() == 0)
+					{
+						cout << "\n*** No Items In List ***" << endl;
+					}
+					else
+					{
+						string title = "";
+
+						cout << "\n2. Delete a book:\n" << endl;
+						cout << "Enter Title: " << endl;
+						getline(cin, title);
+
+						list.Delete(title);
+					}
+					break;
+
+				case 3 :
+					// Checks to see if list is populated
+					if (list.getCount() == 0)
+					{
+						cout << "\n*** No Items In List ***" << endl;
+					}
+					else
+					{
+						string title = "";
+
+						cout << "\n3. Retrieve a book:\n" << endl;
+						cout << "Enter Title: " << endl;
+
+						// TODO Figure out how to account for space
+						getline(cin, title);
+
+						list.Retrieve(title);
+					}
+					break;
+
+				case 4 :
+					// Checks to see if list is populated
+					if (list.getCount() == 0)
+					{
+						cout << "\n*** No Items In List ***" << endl;
+					}
+					else
+					{
+						cout << "\n4. Traverse list forward:\n" << endl;
+
+						list.Traverse(false);
+					}
+					break;
+
+				case 5 :
+					// Checks to see if list is populated
+					if (list.getCount() == 0)
+					{
+						cout << "\n*** No Items In List ***" << endl;
+					}
+					else
+					{
+						cout << "\n4. Traverse list backward:\n" << endl;
+
+						list.Traverse(true);
+					}
+					break;
+
+				case 6 :
+					isExit = true;
+					break;
+				}
+			}
+			else
+			{
+				cout << "\n************************** Invalid "
+						"option ***************************" << endl;
+			}
+
+			// Clears any data in the cin buffer
+			cin.clear();
+			cin.ignore(10000,'\n');
+		}
 	}
 
-	cout << "\nProgram Complete" << endl;
+
+// Save to file ****************************************************************
+
+
+	// Opens Text file and saves each part until inventory is complete.
+	ofstream saveFile(fileName.c_str());
+	int listCount = list.getCount();
+	if (saveFile.is_open())
+	{
+		Node *currentPtr = list.getHead();
+		Node *nextPtr = currentPtr->getNextPointer();
+
+		// Writes every item to its own line using commas as delimiters
+		for (int i = 0; i < listCount; i++)
+		{
+
+			string title = currentPtr->getBookTitle();
+			string author = currentPtr->getAuthor();
+			string date = currentPtr->getDate();
+			saveFile << title << "," << author << "," << date << endl;
+
+			delete currentPtr;
+
+			if (i != listCount - 1)
+				currentPtr = nextPtr;
+				nextPtr = currentPtr->getNextPointer();
+		}
+		saveFile.close();
+
+		cout << "\nFile Saved" << endl;
+	}
+
+	cout << "Program Ended" << endl;
 
 	return 0;
+
 }
+
 
 
 

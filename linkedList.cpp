@@ -13,6 +13,7 @@
 #include <iostream>
 #include <iomanip>
 #include <string>
+#include <sstream>
 
 using namespace std;
 
@@ -72,17 +73,18 @@ void LinkedList::Delete(string title)
 
 	string reply = "";
 	cout << "Do you want to delete the listed entries? (Y/N)" << endl;
-	reply << cin;
+	cin >> reply;
 
 	if (reply == "Y" || reply == "y")
 	{
 		Node *currentPtr = mHead;
 		Node *nextPtr = mHead;
+		int numberOfCompares = mCount;
 		int compareResult;
 		int itemsDeleted = 0;
 
 		// Cycles through each node
-		for (int i = 0; i < mCount; i++)
+		for (int i = 0; i < numberOfCompares; i++)
 		{
 			// Loads next pointer in preparation for next node
 			nextPtr = currentPtr->getNextPointer();
@@ -166,6 +168,7 @@ void LinkedList::Traverse(bool backwards)
 			{
 				// Prints info and updates ptr to next pointer
 				currentPtr->ProcessData();
+				cout << "	Current: " << currentPtr << " Next: " << currentPtr->getNextPointer() << endl;
 				currentPtr = currentPtr->getNextPointer();
 			}
 		}

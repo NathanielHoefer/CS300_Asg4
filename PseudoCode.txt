@@ -135,5 +135,35 @@ Functions:
 			> Compare each node's title to the title given
 			> Print the node's info if title matches	
 	
+	
+Description of the Problem:
+	For this program, you are going to modify the Node class that you wrote for
+	program #3 and implement a double linked list.  The node class will have the
+	same member functions as before with the addition of another link.  You will
+	now have a previous link (pointer) and a next link (pointer).  All of the
+	information will be written to a file.  Just as in the first program, you
+	are to check to see if the file exists.  If it does, open the file and
+	populate the list.  Otherwise, when the program exits, print the information
+	to a file.  Call the file “booklist.txt”.
+
+Functions:
+	+ main() - Loads data from file to new linked list if applicable and then
+		presents the user with a menu with 6 choices:
+			1. Add a book
+			2. Delete a book
+			3. Retrieve a book
+			4. Traverse list forward
+			5. Traverse list backward
+			6. Exit program
+		Preconditions: If file booklist.txt exists, then it will be read
+		Postconditions: booklist.txt is saved with new book info
+		> Check to see if txt file exists and parses info into new linked list.
+		> Present user with menu
+		> Option 1: ask for new book info and use insert method to create node
+		> Option 2: ask for title to delete and use delete method
+		> Option 3: ask for title and use retrieve method
+		> Option 4: Use the traverse method
+		> Option 5: Use the traverse method backward version
+		> Option 6: Save list in txt file and exit program
 			
 */
