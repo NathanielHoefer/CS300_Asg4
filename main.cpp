@@ -109,8 +109,6 @@ int main()
 					sub2 = fileLine.length();
 					date = fileLine.substr(sub1, (sub2 - sub1));
 
-
-
 					// Creates new part from the parsed info
 					list.Insert(title, author, date);
 
@@ -152,7 +150,7 @@ int main()
 		while (!isValid)
 		{
 			// Application title
-			cout << "\n\n---------------- Linked List Program - Assignment 4 "
+			cout << "\n---------------- Linked List Program - Assignment 4 "
 					"-----------------" << endl;
 			cout << "      This application utilizes a linked list to hold book"
 					" data      " << endl;
@@ -175,12 +173,13 @@ int main()
 			// inventory has been reached
 			if ((option >= 1) && (option <= 6))
 			{
-
 				isValid = true;
 
 				// Enters page depending on chosen option
 				switch (option)
 				{
+
+				// Add a book
 				case 1 :
 
 					// If max list count is reached, then skip insert method
@@ -194,20 +193,22 @@ int main()
 						string author = "";
 						string date = "";
 
+
 						cout << "\n1. Add a book:\n" << endl;
+						cin.ignore();
 						cout << "Enter Title: " << endl;
 						getline(cin, title);
 						cout << "Enter Author: " << endl;
 						getline(cin, author);
 						cout << "Enter Date (MM/DD/YYY): " << endl;
 						getline(cin, date);
-
-						cout << endl;
+						cin.clear();
 
 						list.Insert(title, author, date);
 					}
 					break;
 
+				// Delete a book
 				case 2 :
 
 					// Checks to see if list is populated
@@ -219,6 +220,7 @@ int main()
 					{
 						string title = "";
 
+						cin.ignore();
 						cout << "\n2. Delete a book:\n" << endl;
 						cout << "Enter Title: " << endl;
 						getline(cin, title);
@@ -227,6 +229,7 @@ int main()
 					}
 					break;
 
+				// Retrieve a book
 				case 3 :
 					// Checks to see if list is populated
 					if (list.getCount() == 0)
@@ -237,16 +240,17 @@ int main()
 					{
 						string title = "";
 
+						cin.ignore();
 						cout << "\n3. Retrieve a book:\n" << endl;
 						cout << "Enter Title: " << endl;
 
-						// TODO Figure out how to account for space
 						getline(cin, title);
 
 						list.Retrieve(title);
 					}
 					break;
 
+				// Traverse list forwards
 				case 4 :
 					// Checks to see if list is populated
 					if (list.getCount() == 0)
@@ -261,6 +265,7 @@ int main()
 					}
 					break;
 
+				// Traverse list backwards
 				case 5 :
 					// Checks to see if list is populated
 					if (list.getCount() == 0)
@@ -275,6 +280,7 @@ int main()
 					}
 					break;
 
+				// Exits application
 				case 6 :
 					isExit = true;
 					break;
@@ -285,10 +291,6 @@ int main()
 				cout << "\n************************** Invalid "
 						"option ***************************" << endl;
 			}
-
-			// Clears any data in the cin buffer
-			cin.clear();
-			cin.ignore(10000,'\n');
 		}
 	}
 

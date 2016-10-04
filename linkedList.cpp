@@ -168,7 +168,7 @@ void LinkedList::Traverse(bool backwards)
 			{
 				// Prints info and updates ptr to next pointer
 				currentPtr->ProcessData();
-				cout << "	Current: " << currentPtr << " Next: " << currentPtr->getNextPointer() << endl;
+//				cout << "	Current: " << currentPtr << " Next: " << currentPtr->getNextPointer() << endl;
 				currentPtr = currentPtr->getNextPointer();
 			}
 		}
@@ -190,16 +190,24 @@ void LinkedList::Retrieve(string title)
 	else
 	{
 		Node *currentPtr = mHead;
+		int finds = 0;
 
 		// Cycles through all nodes
 		for (int i = 0; i < mCount; i++)
 		{
 			// If titles match, node info is printed
 			if (currentPtr->CompareTitle(title) == 0)
+			{
+				cout << endl;
 				currentPtr->ProcessData();
+				finds += 1;
+			}
 
 			// Updates to next node
 			currentPtr = currentPtr->getNextPointer();
 		}
+
+		if (finds == 0)
+			cout << "\nThere are no matches." << endl;
 	}
 }

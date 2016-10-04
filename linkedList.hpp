@@ -75,6 +75,7 @@ Functions:
 */
 #include "node.hpp"
 #include <string>
+#include <iostream>
 
 using namespace std;
 
@@ -109,7 +110,7 @@ public:
 	Node * getTail() { return mTail; };
 	int getCount() { return mCount; };
 	bool isEmpty() {
-		if ((getHead() && getTail()) == NULL)
+		if ((getHead() == NULL) && (getTail() == NULL))
 			return true;
 		else
 			return false;
